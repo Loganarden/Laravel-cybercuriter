@@ -25,12 +25,12 @@ class ConnexionController extends Controller
 
         if ($resultat)
         {
-            return redirect ('/acceuil');
+            return redirect ('/welcome');
         }
 
-        return back () -> whithErrors
-        ([
-            'email' => 'Vos identifiant sont incorrects.'
-        ]);
+        return back () ->whithInput() -> whithErrors
+            ([
+                'email' => 'Vos identifiant sont incorrects.',
+            ]);
     }
 }

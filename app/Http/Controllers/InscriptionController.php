@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class InscriptionController extends Controller
 {
@@ -23,7 +24,7 @@ class InscriptionController extends Controller
             'password.min'=> 'pour votre securité le mdp doit contenir au minimum 5 caractères'
         ]);
 
-        $utilisateur = new \App\User;
+        $utilisateur = new \App\Models\User;
         $utilisateur->name = request ('name');
         $utilisateur->firstname = request ('firstname');
         $utilisateur->email = request ('email');
@@ -38,7 +39,7 @@ class InscriptionController extends Controller
 
         if ($resulstat_inscription)
         {
-            return redirect ('/acceuil');
+            return redirect ('/welcome');
         }
     }
 }

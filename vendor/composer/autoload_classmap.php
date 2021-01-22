@@ -8,9 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Http\\Controllers\\ConnexionController' => $baseDir . '/app/Http/Controllers/ConnexionController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-    'App\\Http\\Controllers\\InscriptionController' => $baseDir . '/app/Http/Controllers/InscriptionController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -1730,6 +1728,7 @@ return array(
     'Illuminate\\Queue\\Events\\JobFailed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobFailed.php',
     'Illuminate\\Queue\\Events\\JobProcessed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
     'Illuminate\\Queue\\Events\\JobProcessing' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
+    'Illuminate\\Queue\\Events\\JobQueued' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
     'Illuminate\\Queue\\Events\\Looping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/Looping.php',
     'Illuminate\\Queue\\Events\\WorkerStopping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/WorkerStopping.php',
     'Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseFailedJobProvider.php',

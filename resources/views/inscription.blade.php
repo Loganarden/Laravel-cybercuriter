@@ -3,7 +3,7 @@
     @section ('contenu')
 
         <div>
-            INscription
+            Inscription
         </div>
 
         <div>
@@ -22,14 +22,19 @@
                         @endif
 
                     
-                    <p><input type="text" name="email" id="email" placeholder="Email"></p>
+                    <p><input type="email" name="email" id="email" placeholder="Email"></p>
                         @if($errors->has('email'))
                         <p>{{ $errors->first ('email') }}</p>
                         @endif
 
-                    <p><input type="text" name="password" id="password" placeholder="Mot de passe"></p>
+                    <p><input type="password" name="password" id="password" placeholder="Mot de passe"></p>
                         @if($errors->has('password'))
                         <p>{{ $errors->first ('password') }}</p>
+                        @endif
+
+                    <p><input type="password" name="password_confirmation" id="password_confirmation" placeholder="Mot de passe"></p>
+                        @if($errors->has('password_confirmation'))
+                        <p>{{ $errors->first ('password_confirmation') }}</p>
                         @endif
 
                     <p><input type="submit" value="M'inscrire"></p>
