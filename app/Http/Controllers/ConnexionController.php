@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class ConnexionController extends Controller
 {
-    public function formulaire()
+    public function formulaireConnexion()
     {
         return view('/connexion');
     }
 
-    public function traitement()
+    public function traitementConnexion()
     {
         request()-> validate([
             'email' => ['required','email'],
@@ -28,9 +29,15 @@ class ConnexionController extends Controller
             return redirect ('/welcome');
         }
 
-        return back () ->whithInput() -> whithErrors
-            ([
-                'email' => 'Vos identifiant sont incorrects.',
-            ]);
+        return back () ->withInput() ->WithErrors(
+            ['email' => 'identifiant incorecte.',]
+        );
+    }
+
+    public function deconnexion()
+    {
+        auth() ->logout();
+
+        return redirect('/');
     }
 }

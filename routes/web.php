@@ -23,5 +23,6 @@ Route::get('/', function () {
 Route::get('/inscription',[InscriptionController::class,'formulaire']);
 Route::post('/inscription',[InscriptionController::class,'traitement']);
 
-Route::get('/connexion',[ConnexionController::class,'formulaire']);
-Route::post('/connexion',[ConnexionController::class,'traitement']);
+Route::get('/connexion',[ConnexionController::class,'formulaireConnexion']);
+Route::post('/connexion',[ConnexionController::class,'traitementConnexion']);
+Route::get('/deconnexion',[ConnexionController::class,'deconnexion']);

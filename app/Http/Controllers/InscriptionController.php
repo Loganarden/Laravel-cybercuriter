@@ -39,7 +39,7 @@ class InscriptionController extends Controller
 
         if ($resulstat_inscription)
         {
-            return redirect ('/welcome');
+            return redirect ('/');
         }
     }
 }
