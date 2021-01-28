@@ -12,7 +12,7 @@
 
         <div>
             <fieldset>
-                <form action="/connexion" method="post">
+                <form action="api/connexion" method="post">
                 {{ csrf_field() }}
 
                     <p><input type="email" name="email" id="email" placeholder="Email"></p>

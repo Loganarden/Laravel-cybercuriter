@@ -1,4 +1,14 @@
 @extends('layout')
+
+<style>
+
+#barre {
+    background-color:grey;
+    width: 0;
+    height: 10px;
+}
+
+</style>
     
     @section ('contenu')
 
@@ -8,7 +18,7 @@
 
         <div>
             <fieldset>
-                <form action="/inscription" method="post">
+                <form action="api/inscription" method="post">
                 {{ csrf_field() }}
 
                     <p><input type="text" name="name" id="name" placeholder="Nom"></p>
@@ -31,6 +41,7 @@
                         @if($errors->has('password'))
                         <p>{{ $errors->first ('password') }}</p>
                         @endif
+                    <div id="barre"></div>      
 
                     <p><input type="password" name="password_confirmation" id="password_confirmation" placeholder="Mot de passe"></p>
                         @if($errors->has('password_confirmation'))
@@ -45,10 +56,10 @@
 
     @endsection
 
-
 <script>
 
 $(document).ready(function() {
+
     $('#password, #password_confirmation').on('keyup', function(e) {
  
      if($('#password').val() != '' && $('#password_confirmation').val() != '' && $('#password').val() != $('#password_confirmation').val())
@@ -73,13 +84,21 @@ $(document).ready(function() {
  
         } else if (strongRegex.test($(this).val())) {
             // If reg ex matches strong password
-            $('#passwordStrength').removeClass().addClass('alert alert-success').html('Good Password!');
+            $('#passwordStrength').removeClass().addClass('alert alert-success').html('Bien jouer !');
+            $('#barre').width(185);
+            $('#barre').css('background-color','green');
+
         } else if (mediumRegex.test($(this).val())) {
             // If medium password matches the reg ex
-            $('#passwordStrength').removeClass().addClass('alert alert-info').html('Make your password stronger with more capital letters, more numbers and special characters!');
+            $('#passwordStrength').removeClass().addClass('alert alert-info').html('Ajouter des Majuscules, des Chifre mais ausssi des caractère speciaux !');
+            $('#barre').width(140);
+            $('#barre').css("background-color","yellow");
+
         } else {
             // If password is ok
-            $('#passwordStrength').removeClass().addClass('alert alert-error').html('Weak Password, try using numbers and capital letters.');
+            $('#passwordStrength').removeClass().addClass('alert alert-error').html('Mot de passe faible, Ajouter des Majuscules.');
+            $("#barre").width(90);
+            $("#barre").css("background-color","red");
         }
  
         return true;

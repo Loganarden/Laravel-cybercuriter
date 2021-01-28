@@ -20,9 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/inscription',[InscriptionController::class,'formulaire']);
-Route::post('/inscription',[InscriptionController::class,'traitement']);
+Route::get('/connexion', function () {
+    return view('connexion');
+});
 
-Route::get('/connexion',[ConnexionController::class,'formulaireConnexion']);
-Route::post('/connexion',[ConnexionController::class,'traitementConnexion']);
+Route::get('/inscription', function () {
+    return view('inscription');
+});
+
 Route::get('/deconnexion',[ConnexionController::class,'deconnexion']);

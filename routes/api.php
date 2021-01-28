@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConnexionController;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/inscription',[ConnexionController::class,'register']);
+Route::post('/connexion',[ConnexionController::class,'authenticate']);
+Route::get('/open',[DataController::class,'open']);
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('/user',[ConnexionController::class,'getAuthenticatedUser']);
+    Route::get('/close',[DataController::class,'close']);
 });
