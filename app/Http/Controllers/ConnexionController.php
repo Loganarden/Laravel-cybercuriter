@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\User;
+use Illuminate\Support\Facades\log;
+use Illuminate\Support\Facades\Mail;
 
 class ConnexionController extends Controller
 {
@@ -23,11 +25,42 @@ class ConnexionController extends Controller
 
             try {
                 if (! $token = JWTAuth::attempt($credentials)) {
-                    return response()->json(['error' => 'invalid_credentials'], 400);
+                    $user = User::where('email', $credentials['email'])->first();
+                    if (date('s') < $user->temps && $user->temps != null)
+                    {
+                        return response()->json(['error' => 'echec trop de tentative'], 400);
+                    }
+                    else {
+                        $user->temps = null;
+                        $user->save();
+                    }
+                    
+                    $user->tentative = $user->tentative + 1;
+                    $user->save();
+                    $reste = $user->tentative - 1;
+                    if ($user->tentatives > 3)
+                    {
+                        log::debug('trop de tentative echoué, reéssayer plus tard.');
+                        Mail::to($user->email)->send(new authmail());
+                        
+                        $user->tentative = 0;
+                        $user->temps = date('s') + 30;
+                        $user->save();
+                        return response()->json(['message' => 'trop de tentative'], 401);
+                    }
+                    else {
+                        return response()->json(['message' => 'il vous reste' . ' ' . (3-$reste) . ' ' . 'tentative.']);
+                    }
+
                 }
+
             } catch (JWTException $e) {
                 return response()->json(['error' => 'could_not_create_token'], 500);
             }
+
+            $user = User::where('email', $credentials['email'])->first();
+            $user->tentative = 0;
+            $user->save();
 
             return response()->json(compact('token'));
         }
@@ -51,6 +84,7 @@ class ConnexionController extends Controller
                 'firstname' => $request->get('firstname'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
+                'tentative' => 0,
             ]);
 
             $token = JWTAuth::fromUser($user);
