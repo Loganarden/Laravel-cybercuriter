@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\User;
-use Illuminate\Support\Facades\log;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ConnexionController extends Controller
@@ -40,7 +40,7 @@ class ConnexionController extends Controller
                     $reste = $user->tentative - 1;
                     if ($user->tentatives > 3)
                     {
-                        log::debug('trop de tentative echoué, reéssayer plus tard.');
+                        
                         Mail::to($user->email)->send(new authmail());
                         
                         $user->tentative = 0;
@@ -53,6 +53,7 @@ class ConnexionController extends Controller
                     }
 
                 }
+                Log::debug('trop de tentative echoué, reéssayer plus tard.');
 
             } catch (JWTException $e) {
                 return response()->json(['error' => 'could_not_create_token'], 500);
